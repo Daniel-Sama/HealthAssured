@@ -50,9 +50,9 @@ namespace CheckoutKata
 
                 foreach (KeyValuePair<string, int> item in scannedItems)
                 {
-
+                    string sku = item.Key;
                     int count = item.Value;
-                    PricingRule? rule = pricingRules.Where(r => r.SKU == item.Key).SingleOrDefault();
+                    PricingRule? rule = pricingRules.Where(r => r.SKU == sku).SingleOrDefault();
 
                     if (rule != null)
                     {
@@ -71,6 +71,12 @@ namespace CheckoutKata
                             totalPrice = totalPrice + (count * rule.UnitPrice);
 
                         }
+
+                    }
+                    else
+                    {
+
+                        Console.WriteLine($"Cannot find {sku} in the pricing rule");
 
                     }
 
