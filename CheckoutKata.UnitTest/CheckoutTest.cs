@@ -30,15 +30,18 @@ namespace CheckoutKata.UnitTest
 
             List<PricingRule> pricingRules = new List<PricingRule>()
             {
-                new PricingRule { SKU = "A", UnitPrice = 50 }
+                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
+                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
+                new PricingRule { SKU = "C", UnitPrice = 20 },
+                new PricingRule { SKU = "D", UnitPrice = 15 },
             };
 
             checkout.SetPricingRule(pricingRules);
-            checkout.Scan("A");
+            checkout.Scan("C");
 
             int totalPrice = checkout.GetTotalPrice();
 
-            Assert.Equal(50, totalPrice);
+            Assert.Equal(20, totalPrice);
 
         }
 
@@ -48,18 +51,19 @@ namespace CheckoutKata.UnitTest
 
             List<PricingRule> pricingRules = new List<PricingRule>()
             {
-                new PricingRule { SKU = "A", UnitPrice = 50 },
-                new PricingRule { SKU = "B", UnitPrice = 30 },
-                new PricingRule { SKU = "C", UnitPrice = 20 }
+                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
+                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
+                new PricingRule { SKU = "C", UnitPrice = 20 },
+                new PricingRule { SKU = "D", UnitPrice = 15 },
             };
 
             checkout.SetPricingRule(pricingRules);
-            checkout.Scan("A");
-            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
 
             int totalPrice = checkout.GetTotalPrice();
 
-            Assert.Equal(80, totalPrice);
+            Assert.Equal(35, totalPrice);
 
         }
 
@@ -69,6 +73,10 @@ namespace CheckoutKata.UnitTest
 
             List<PricingRule> pricingRules = new List<PricingRule>()
             {
+                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
+                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
+                new PricingRule { SKU = "C", UnitPrice = 20 },
+                new PricingRule { SKU = "D", UnitPrice = 15 },
             };
 
             checkout.SetPricingRule(pricingRules);
@@ -86,6 +94,10 @@ namespace CheckoutKata.UnitTest
 
             List<PricingRule> pricingRules = new List<PricingRule>()
             {
+                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
+                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
+                new PricingRule { SKU = "C", UnitPrice = 20 },
+                new PricingRule { SKU = "D", UnitPrice = 15 },
             };
 
             checkout.SetPricingRule(pricingRules);
@@ -103,6 +115,10 @@ namespace CheckoutKata.UnitTest
 
             List<PricingRule> pricingRules = new List<PricingRule>()
             {
+                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
+                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
+                new PricingRule { SKU = "C", UnitPrice = 20 },
+                new PricingRule { SKU = "D", UnitPrice = 15 },
             };
 
             checkout.SetPricingRule(pricingRules);
@@ -120,6 +136,10 @@ namespace CheckoutKata.UnitTest
 
             List<PricingRule> pricingRules = new List<PricingRule>()
             {
+                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
+                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
+                new PricingRule { SKU = "C", UnitPrice = 20 },
+                new PricingRule { SKU = "D", UnitPrice = 15 },
             };
 
             checkout.SetPricingRule(pricingRules);
@@ -137,6 +157,10 @@ namespace CheckoutKata.UnitTest
 
             List<PricingRule> pricingRules = new List<PricingRule>()
             {
+                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
+                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
+                new PricingRule { SKU = "C", UnitPrice = 20 },
+                new PricingRule { SKU = "D", UnitPrice = 15 },
             };
 
             checkout.SetPricingRule(pricingRules);
