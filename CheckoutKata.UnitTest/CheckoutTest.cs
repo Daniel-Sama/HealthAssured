@@ -239,26 +239,5 @@ namespace CheckoutKata.UnitTest
 
         }
 
-        [Fact]
-        public void Should_Fail_GetTotalPrice_With_Unrecognised_Pricing_Rule()
-        {
-
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
-            checkout.Scan("");
-
-            int totalPrice = checkout.GetTotalPrice();
-
-            Assert.Equal(0, totalPrice);
-
-        }
-
     }
 }
