@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CheckoutKata.Interface;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +11,19 @@ namespace CheckoutKata.UnitTest
     public class CheckoutTest
     {
 
+        private readonly ICheckout checkout;
+
+        public CheckoutTest()
+        {
+
+            ServiceCollection services = new ServiceCollection();
+            services.AddTransient<ICheckout, Checkout>();
+
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+            checkout = serviceProvider.GetRequiredService<ICheckout>();
+
+        }
+
         [Fact]
         public void Should_Pass_GetTotalPrice_With_Single_Item_No_Special_Price()
         {
@@ -17,9 +32,7 @@ namespace CheckoutKata.UnitTest
             {
             };
 
-
-            Checkout checkout = new Checkout(pricingRules);
-
+            checkout.SetPricingRule(pricingRules);
             checkout.Scan("");
 
             int totalPrice = checkout.GetTotalPrice();
@@ -36,9 +49,7 @@ namespace CheckoutKata.UnitTest
             {
             };
 
-
-            Checkout checkout = new Checkout(pricingRules);
-
+            checkout.SetPricingRule(pricingRules);
             checkout.Scan("");
 
             int totalPrice = checkout.GetTotalPrice();
@@ -55,9 +66,7 @@ namespace CheckoutKata.UnitTest
             {
             };
 
-
-            Checkout checkout = new Checkout(pricingRules);
-
+            checkout.SetPricingRule(pricingRules);
             checkout.Scan("");
 
             int totalPrice = checkout.GetTotalPrice();
@@ -74,9 +83,7 @@ namespace CheckoutKata.UnitTest
             {
             };
 
-
-            Checkout checkout = new Checkout(pricingRules);
-
+            checkout.SetPricingRule(pricingRules);
             checkout.Scan("");
 
             int totalPrice = checkout.GetTotalPrice();
@@ -93,9 +100,7 @@ namespace CheckoutKata.UnitTest
             {
             };
 
-
-            Checkout checkout = new Checkout(pricingRules);
-
+            checkout.SetPricingRule(pricingRules);
             checkout.Scan("");
 
             int totalPrice = checkout.GetTotalPrice();
@@ -112,9 +117,7 @@ namespace CheckoutKata.UnitTest
             {
             };
 
-
-            Checkout checkout = new Checkout(pricingRules);
-
+            checkout.SetPricingRule(pricingRules);
             checkout.Scan("");
 
             int totalPrice = checkout.GetTotalPrice();
@@ -131,8 +134,7 @@ namespace CheckoutKata.UnitTest
             {
             };
 
-            Checkout checkout = new Checkout(pricingRules);
-
+            checkout.SetPricingRule(pricingRules);
             checkout.Scan("");
 
             int totalPrice = checkout.GetTotalPrice();

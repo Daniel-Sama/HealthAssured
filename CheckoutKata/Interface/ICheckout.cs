@@ -8,6 +8,7 @@ namespace CheckoutKata.Interface
 {
     public interface ICheckout
     {
+        public void SetPricingRule(List<PricingRule> pricingRules);
         public void Scan(string item);
         public int GetTotalPrice();
 

@@ -9,14 +9,17 @@ namespace CheckoutKata
 {
     public sealed class Checkout : ICheckout
     {
-        private readonly List<PricingRule> pricingRules;
+        private List<PricingRule> pricingRules;
         private readonly Dictionary<string, int> scannedItems = new Dictionary<string, int>();
 
-        public Checkout(List<PricingRule> pricingRules)
+        public Checkout()
         {
 
-            this.pricingRules = pricingRules;
+        }
 
+        public void SetPricingRule(List<PricingRule> pricingRules)
+        {
+            this.pricingRules = pricingRules;
         }
 
         public void Scan(string item)
