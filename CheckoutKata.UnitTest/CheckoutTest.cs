@@ -17,12 +17,6 @@ namespace CheckoutKata.UnitTest
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             checkout = serviceProvider.GetRequiredService<ICheckout>();
 
-        }
-
-        [Fact]
-        public void Should_Pass_GetTotalPrice_With_Single_Item_No_Special_Price()
-        {
-
             List<PricingRule> pricingRules = new List<PricingRule>()
             {
                 new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
@@ -32,6 +26,13 @@ namespace CheckoutKata.UnitTest
             };
 
             checkout.SetPricingRule(pricingRules);
+
+        }
+
+        [Fact]
+        public void Should_Pass_GetTotalPrice_With_Single_Item_No_Special_Price()
+        {
+
             checkout.Scan("C");
 
             int totalPrice = checkout.GetTotalPrice();
@@ -44,15 +45,6 @@ namespace CheckoutKata.UnitTest
         public void Should_Pass_GetTotalPrice_With_Multiple_Items_No_Special_Price()
         {
 
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
             checkout.Scan("C");
             checkout.Scan("D");
 
@@ -66,15 +58,6 @@ namespace CheckoutKata.UnitTest
         public void Should_Pass_GetTotalPrice_With_Special_Price_And_No_Remainders()
         {
 
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
             checkout.Scan("A");
             checkout.Scan("A");
             checkout.Scan("A");
@@ -89,15 +72,6 @@ namespace CheckoutKata.UnitTest
         public void Should_Pass_GetTotalPrice_With_Multiple_Special_Price_And_No_Remainders()
         {
 
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
             checkout.Scan("A");
             checkout.Scan("A");
             checkout.Scan("A");
@@ -114,15 +88,6 @@ namespace CheckoutKata.UnitTest
         public void Should_Pass_GetTotalPrice_With_Special_Price_And_Remainders()
         {
 
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
             checkout.Scan("A");
             checkout.Scan("A");
             checkout.Scan("A");
@@ -139,15 +104,6 @@ namespace CheckoutKata.UnitTest
         public void Should_Pass_GetTotalPrice_With_Multiple_Special_Price_And_Remainders()
         {
 
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
             checkout.Scan("A");
             checkout.Scan("A");
             checkout.Scan("A");
@@ -155,7 +111,6 @@ namespace CheckoutKata.UnitTest
             checkout.Scan("B");
             checkout.Scan("B");
             checkout.Scan("B");
-
 
             int totalPrice = checkout.GetTotalPrice();
 
@@ -167,15 +122,6 @@ namespace CheckoutKata.UnitTest
         public void Should_Pass_GetTotalPrice_With_Multiple_Special_Price_And_Remainders_In_Any_Order()
         {
 
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
             checkout.Scan("A");
             checkout.Scan("B");
             checkout.Scan("C");
@@ -197,15 +143,6 @@ namespace CheckoutKata.UnitTest
         public void Should_Pass_GetTotalPrice_With_Unrecognised_And_Recognised_Price()
         {
 
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
             checkout.Scan("A");
             checkout.Scan("Z");
             checkout.Scan("D");
@@ -221,15 +158,6 @@ namespace CheckoutKata.UnitTest
         public void Should_Return_Zero_GetTotalPrice_With_No_Items()
         {
 
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
             checkout.Scan("E");
 
             int totalPrice = checkout.GetTotalPrice();
