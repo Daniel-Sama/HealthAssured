@@ -166,6 +166,18 @@ namespace CheckoutKata.UnitTest
 
         }
 
+        [Fact]
+        public void Should_Return_Zero_GetTotalPrice_With_No_Unrecognised_Item()
+        {
+
+            checkout.Scan("Z");
+
+            int totalPrice = checkout.GetTotalPrice();
+
+            Assert.Equal(0, totalPrice);
+
+        }
+
 
     }
 }
