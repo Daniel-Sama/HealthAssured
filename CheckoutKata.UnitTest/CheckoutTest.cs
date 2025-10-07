@@ -158,7 +158,7 @@ namespace CheckoutKata.UnitTest
         public void Should_Return_Zero_GetTotalPrice_With_No_Items()
         {
 
-            checkout.Scan("E");
+            checkout.Scan("");
 
             int totalPrice = checkout.GetTotalPrice();
 
