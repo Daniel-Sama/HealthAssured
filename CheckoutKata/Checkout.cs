@@ -20,52 +20,71 @@ namespace CheckoutKata
         public void Scan(string item)
         {
 
-            if (scannedItems.ContainsKey(item))
+            try
             {
-                scannedItems[item] = scannedItems[item] + 1;
-            }
-            else
-            {
-                scannedItems[item] = 1;
-            }
 
+                if (scannedItems.ContainsKey(item))
+                {
+                    scannedItems[item] = scannedItems[item] + 1;
+                }
+                else
+                {
+                    scannedItems[item] = 1;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error: {ex}");
+
+            }
         }
 
         public int GetTotalPrice()
         {
-
             int totalPrice = 0;
 
-            foreach (KeyValuePair<string, int> item in scannedItems)
+            try
             {
 
-                int count = item.Value;
-                PricingRule? rule = pricingRules.Where(r => r.SKU == item.Key).SingleOrDefault();
-
-                if (rule != null)
+                foreach (KeyValuePair<string, int> item in scannedItems)
                 {
 
-                    if (rule.SpecialQuantity.HasValue && rule.SpecialPrice.HasValue)
+                    int count = item.Value;
+                    PricingRule? rule = pricingRules.Where(r => r.SKU == item.Key).SingleOrDefault();
+
+                    if (rule != null)
                     {
 
-                        int specialQuantity = count / rule.SpecialQuantity.Value;
-                        int specialRemainder = count % rule.SpecialQuantity.Value;
-                        totalPrice = totalPrice + (specialQuantity * rule.SpecialPrice.Value) + (specialRemainder * rule.UnitPrice);
+                        if (rule.SpecialQuantity.HasValue && rule.SpecialPrice.HasValue)
+                        {
 
-                    }
-                    else
-                    {
+                            int specialQuantity = count / rule.SpecialQuantity.Value;
+                            int specialRemainder = count % rule.SpecialQuantity.Value;
+                            totalPrice = totalPrice + (specialQuantity * rule.SpecialPrice.Value) + (specialRemainder * rule.UnitPrice);
 
-                        totalPrice = totalPrice + (count * rule.UnitPrice);
+                        }
+                        else
+                        {
+
+                            totalPrice = totalPrice + (count * rule.UnitPrice);
+
+                        }
 
                     }
 
                 }
 
             }
+            catch(Exception ex)
+            {
+
+                Console.WriteLine($"Error: {ex}");
+
+            }
 
             return totalPrice;
-
         }
 
 
