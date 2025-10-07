@@ -1,4 +1,5 @@
-﻿using CheckoutKata.Interface;
+﻿using CheckoutKata.Exceptions;
+using CheckoutKata.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -211,7 +212,7 @@ namespace CheckoutKata.UnitTest
             };
 
             checkout.SetPricingRule(pricingRules);
-            checkout.Scan("");
+            checkout.Scan("E");
 
             int totalPrice = checkout.GetTotalPrice();
 
@@ -220,7 +221,7 @@ namespace CheckoutKata.UnitTest
         }
 
         [Fact]
-        public void Should_Fail_GetTotalPrice_With_No_Pricing_Rule()
+        public void Should_Throw_PricingRuleNotFoundException_GetTotalPrice_With_No_Pricing_Rule()
         {
 
             List<PricingRule> pricingRules = new List<PricingRule>()
@@ -234,9 +235,7 @@ namespace CheckoutKata.UnitTest
             checkout.SetPricingRule(pricingRules);
             checkout.Scan("");
 
-            int totalPrice = checkout.GetTotalPrice();
-
-            Assert.Equal(0, totalPrice);
+            Assert.Throws<PricingRuleNotFoundException>(() => checkout.GetTotalPrice());
 
         }
 

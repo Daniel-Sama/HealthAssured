@@ -1,4 +1,5 @@
-﻿using CheckoutKata.Interface;
+﻿using CheckoutKata.Exceptions;
+using CheckoutKata.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,14 @@ namespace CheckoutKata
             {
 
                 int count = item.Value;
-                PricingRule rule = pricingRules.Where(r => r.SKU == item.Key).Single();
+                PricingRule? rule = pricingRules.Where(r => r.SKU == item.Key).SingleOrDefault();
+
+                if (rule == null)
+                {
+
+                    throw new PricingRuleNotFoundException();
+
+                }
 
                 if (rule.SpecialQuantity.HasValue && rule.SpecialPrice.HasValue)
                 {
@@ -61,6 +69,8 @@ namespace CheckoutKata
                     totalPrice = totalPrice + (count * rule.UnitPrice);
 
                 }
+
+
 
             }
 
