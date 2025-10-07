@@ -80,11 +80,13 @@ namespace CheckoutKata.UnitTest
             };
 
             checkout.SetPricingRule(pricingRules);
-            checkout.Scan("");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
 
             int totalPrice = checkout.GetTotalPrice();
 
-            Assert.Equal(0, totalPrice);
+            Assert.Equal(130, totalPrice);
 
         }
 
