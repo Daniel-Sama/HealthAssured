@@ -48,14 +48,18 @@ namespace CheckoutKata.UnitTest
 
             List<PricingRule> pricingRules = new List<PricingRule>()
             {
+                new PricingRule { SKU = "A", UnitPrice = 50 },
+                new PricingRule { SKU = "B", UnitPrice = 30 },
+                new PricingRule { SKU = "C", UnitPrice = 20 }
             };
 
             checkout.SetPricingRule(pricingRules);
-            checkout.Scan("");
+            checkout.Scan("A");
+            checkout.Scan("B");
 
             int totalPrice = checkout.GetTotalPrice();
 
-            Assert.Equal(0, totalPrice);
+            Assert.Equal(80, totalPrice);
 
         }
 
