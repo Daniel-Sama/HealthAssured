@@ -200,6 +200,30 @@ namespace CheckoutKata.UnitTest
         }
 
         [Fact]
+        public void Should_Pass_GetTotalPrice_With_Unrecognised_And_Recognised_Price()
+        {
+
+            List<PricingRule> pricingRules = new List<PricingRule>()
+            {
+                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
+                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
+                new PricingRule { SKU = "C", UnitPrice = 20 },
+                new PricingRule { SKU = "D", UnitPrice = 15 },
+            };
+
+            checkout.SetPricingRule(pricingRules);
+            checkout.Scan("A");
+            checkout.Scan("Z");
+            checkout.Scan("D");
+
+            int totalPrice = checkout.GetTotalPrice();
+
+            Assert.Equal(65, totalPrice);
+
+        }
+
+
+        [Fact]
         public void Should_Return_Zero_GetTotalPrice_With_No_Items()
         {
 
@@ -220,24 +244,6 @@ namespace CheckoutKata.UnitTest
 
         }
 
-        [Fact]
-        public void Should_Throw_PricingRuleNotFoundException_GetTotalPrice_With_No_Pricing_Rule()
-        {
-
-            List<PricingRule> pricingRules = new List<PricingRule>()
-            {
-                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
-                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
-                new PricingRule { SKU = "C", UnitPrice = 20 },
-                new PricingRule { SKU = "D", UnitPrice = 15 },
-            };
-
-            checkout.SetPricingRule(pricingRules);
-            checkout.Scan("");
-
-            Assert.Throws<PricingRuleNotFoundException>(() => checkout.GetTotalPrice());
-
-        }
 
     }
 }
