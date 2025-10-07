@@ -36,7 +36,32 @@ namespace CheckoutKata
         public int GetTotalPrice()
         {
 
-            return 0;
+            int totalPrice = 0;
+
+            foreach (KeyValuePair<string, int> item in scannedItems)
+            {
+
+                int count = item.Value;
+                PricingRule rule = pricingRules.Where(r => r.SKU == item.Key).Single();
+
+                if (rule.SpecialQuantity.HasValue && rule.SpecialPrice.HasValue)
+                {
+
+                    int specialQuantity = count / rule.SpecialQuantity.Value;
+                    int specialRemainder = count % rule.SpecialQuantity.Value;
+                    totalPrice = totalPrice + (specialQuantity * rule.SpecialPrice.Value) + (specialRemainder * rule.UnitPrice);
+
+                }
+                else
+                {
+
+                    totalPrice = totalPrice + (count * rule.UnitPrice);
+
+                }
+
+            }
+
+            return totalPrice;
 
         }
 
