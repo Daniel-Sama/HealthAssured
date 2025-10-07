@@ -169,6 +169,36 @@ namespace CheckoutKata.UnitTest
         }
 
         [Fact]
+        public void Should_Pass_GetTotalPrice_With_Multiple_Special_Price_And_Remainders_In_Any_Order()
+        {
+
+            List<PricingRule> pricingRules = new List<PricingRule>()
+            {
+                new PricingRule { SKU = "A", UnitPrice = 50, SpecialQuantity = 3, SpecialPrice = 130 },
+                new PricingRule { SKU = "B", UnitPrice = 30, SpecialQuantity = 2, SpecialPrice = 45 },
+                new PricingRule { SKU = "C", UnitPrice = 20 },
+                new PricingRule { SKU = "D", UnitPrice = 15 },
+            };
+
+            checkout.SetPricingRule(pricingRules);
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("B");
+
+            int totalPrice = checkout.GetTotalPrice();
+
+            Assert.Equal(340, totalPrice);
+
+        }
+
+        [Fact]
         public void Should_Return_Zero_GetTotalPrice_With_No_Items()
         {
 
